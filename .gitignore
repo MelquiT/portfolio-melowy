@@ -1,1 +1,23 @@
-js/config.js
+# Configuración con API keys
+config.js
+.env
+*.env
+
+# Dependencias
+node_modules/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+.cache/
+
+# IDEs
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
