@@ -27,4 +27,4 @@ Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE)
 
 ## Autor
 
-**Melqui Tapia** - [GitHub](https://github.com/tuusuario) | [LinkedIn](https://linkedin.com/in/tuusuario)
+**Melqui Tapia** - [LinkedIn](https://linkedin.com/in/tuusuario)
