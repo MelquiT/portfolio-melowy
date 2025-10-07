@@ -1,5 +1,7 @@
 # portfolio-melowy
 
+Portfolio personal desarrollado con HTML, CSS y JavaScript vanilla, con animaciones GSAP y formulario de contacto integrado.
+
 ### Estructura del proyecto
 
 ```
@@ -9,7 +11,7 @@
 ├── css/
 ├── js/
 ├── config.js (no incluido en git)
-├── config.example.js
+├── .github/workflows/
 └── index.html
 ```
 
@@ -20,6 +22,9 @@
 - JavaScript (Vanilla)
 - GSAP (Animaciones)
 - Web3Forms (Formulario de contacto)
+- GitHub Pages (Hosting)
+- GitHub Actions (CI/CD)
+
 
 ## Licencia
 

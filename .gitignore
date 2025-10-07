@@ -1,5 +1,6 @@
 # Configuración con API keys
 config.js
+config-guide.md
 .env
 *.env
 

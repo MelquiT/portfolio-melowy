@@ -1,3 +1,5 @@
+// API_KEY_PLACEHOLDER
+
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('form');
     const result = document.getElementById('result');
@@ -5,16 +7,17 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        if (typeof CONFIG === 'undefined' || !CONFIG.WEB3FORMS_API_KEY) {
-            result.innerHTML = "Error: Config not available";
-            return;
-        }
+        // if (typeof CONFIG === 'undefined' || !CONFIG.WEB3FORMS_API_KEY) {
+        //     result.innerHTML = "Error: Config not available";
+        //     return;
+        // }
 
         const formData = new FormData(form);
         const object = Object.fromEntries(formData);
         console.log(object);
         
-        object.access_key = CONFIG.WEB3FORMS_API_KEY;
+        // object.access_key = CONFIG.WEB3FORMS_API_KEY;
+        object.access_key = WEB3FORMS_API_KEY;
 
         const json = JSON.stringify(object);
 
