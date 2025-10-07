@@ -502,14 +502,13 @@ nav::before {
         justify-content: center;
     }
     .home-box .social-icons {
-        margin-block-start: 4rem;
         justify-content: center;
     }
 }
 
 @media screen and (max-width: 520px) {
     .home-image {
-        margin-block-start: 5rem;
+        margin-block-start: 12rem;
     }
     .scroll-down-tag {
         display: none;
