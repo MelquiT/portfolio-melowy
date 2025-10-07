@@ -507,6 +507,16 @@ nav::before {
     }
 }
 
+@media screen and (max-width: 520px) {
+    .home-image {
+        margin-block-start: 5rem;
+    }
+    .scroll-down-tag {
+        display: none;
+    }
+    
+}
+
 /*--- About box ---*/
 .section-container {
     padding-block-start: 4.5em;

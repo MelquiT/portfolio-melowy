@@ -102,7 +102,7 @@ const setupNavAnimation = () => {
         highlightSpan.style.left = `${leftPosition}px`;
         highlightSpan.style.opacity = '1';
     }
-    
+
     links.forEach(a => {
         const anchor = a.firstElementChild;
         const element = document.querySelector(anchor.getAttribute("href")),
@@ -123,9 +123,9 @@ const setupNavAnimation = () => {
                 }
             });
 
-        a.addEventListener('click', function(e) {
+        a.addEventListener('click', function (e) {
             e.preventDefault(); // Prevent default anchor behavior
-            gsap.to(window, {duration: 0, scrollTo: linkST.start, overwrite: "auto"});
+            gsap.to(window, { duration: 0, scrollTo: linkST.start, overwrite: "auto" });
         });
 
         a.addEventListener('mouseenter', () => {
@@ -207,27 +207,27 @@ Array.from(navbarMobile.querySelectorAll('a')).forEach(element => {
 });
 
 menuBtn.addEventListener('click', () => {
-    if(menuBtn.children[1].classList.contains('uil-bars')) {
+    if (menuBtn.children[1].classList.contains('uil-bars')) {
         menuBtn.children[1].classList.remove('uil-bars');
         menuBtn.children[1].classList.add('uil-multiply');
-        
+
         navbarMobile.style.display = 'block';
-        
+
         setTimeout(() => {
             navbarMobile.classList.add('navbar-mobile-active');
         }, 10);
-        
+
         overlayNavbar.style.display = 'block';
     } else {
         menuBtn.children[1].classList.remove('uil-multiply');
         menuBtn.children[1].classList.add('uil-bars');
-        
+
         navbarMobile.classList.remove('navbar-mobile-active');
-        
+
         setTimeout(() => {
             navbarMobile.style.display = 'none';
-        }, 400); 
-        
+        }, 400);
+
         overlayNavbar.style.display = 'none';
     }
 });
@@ -237,7 +237,7 @@ menuBtn.addEventListener('click', () => {
 gsap.registerPlugin(SplitText);
 
 document.fonts.ready.then(() => {
-    let split = SplitText.create('.home-title', {type: 'words, chars'});
+    let split = SplitText.create('.home-title', { type: 'words, chars' });
 
     gsap.from(split.chars, {
         delay: 0.5,
@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //window.addEventListener('DOMContentLoaded', setupImageAboutAnimation);
- window.addEventListener('load', () => {
+window.addEventListener('load', () => {
     setupImageAboutAnimation(); //necessary for images loading
     ScrollTrigger.refresh(); //necessary for ScrollTrigger to recalculate positions
 });
@@ -358,71 +358,88 @@ let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-        // console.log('Resized finished.');
+
         setupWhenResizeNav();
         setupImageAboutAnimation();
+
+        if (window.innerWidth >= 820 && !skillsEffectActive) {
+            console.loge(skillsEffectActive);
+            skillsInteractionMouseEffect();
+        }
     }, 250);
 });
 
 // #endregion About images animation
 
 // #region Skills overlay effect
-const skillsSection = document.querySelector('skills-container');
+const overlay = document.querySelector('.overlay');
 const skillsContainer = document.querySelector('.skills-wrapper');
 const cards = Array.from(document.querySelectorAll('.skill-panel'));
-const overlay = document.querySelector('.overlay');
 
-const applyOverlayEffect = (e) => {
-    const overlayEl = e.currentTarget;
-    const x = e.pageX - skillsContainer.offsetLeft;
-    const y = e.pageY - skillsContainer.offsetTop;
+const skillsInteractionMouseEffect = () => {
+    // const skillsSection = document.querySelector('skills-container');
+    const skillsContainer = document.querySelector('.skills-wrapper');
+    const cards = Array.from(document.querySelectorAll('.skill-panel'));
 
-    overlayEl.style = `--opacity: 1; --x: ${x}px; --y: ${y}px;`;
-}
+    const applyOverlayEffect = (e) => {
+        const overlayEl = e.currentTarget;
+        const x = e.pageX - skillsContainer.offsetLeft;
+        const y = e.pageY - skillsContainer.offsetTop;
 
-const createOverlayTitle = (overlayCard, titleEl) => {
-    const overlayTitle = document.createElement('h2');
-    overlayTitle.classList.add('skill-title');
-    overlayTitle.textContent = titleEl.textContent;
-    overlayTitle.setAttribute("aria-hidden", true);
-    overlayCard.appendChild(overlayTitle);
-}
+        overlayEl.style = `--opacity: 1; --x: ${x}px; --y: ${y}px;`;
+    }
 
-const observer = new ResizeObserver((entries) => {
-    entries.forEach(entry => {
-        const cardIndex = cards.indexOf(entry.target);
-        let width = entry.borderBoxSize[0].inlineSize;
-        let height = entry.borderBoxSize[0].blockSize;
+    const createOverlayTitle = (overlayCard, titleEl) => {
+        const overlayTitle = document.createElement('h2');
+        overlayTitle.classList.add('skill-title');
+        overlayTitle.textContent = titleEl.textContent;
+        overlayTitle.setAttribute("aria-hidden", true);
+        overlayCard.appendChild(overlayTitle);
+    }
 
-        if (cardIndex >= 0) {
-            overlay.children[cardIndex].style.width = `${width}px`;
-            overlay.children[cardIndex].style.height = `${height}px`;
-        }
+    const observer = new ResizeObserver((entries) => {
+        entries.forEach(entry => {
+            const cardIndex = cards.indexOf(entry.target);
+            let width = entry.borderBoxSize[0].inlineSize;
+            let height = entry.borderBoxSize[0].blockSize;
+
+            if (cardIndex >= 0) {
+                overlay.children[cardIndex].style.width = `${width}px`;
+                overlay.children[cardIndex].style.height = `${height}px`;
+            }
+        });
     });
-});
 
-const initOverlayCard = (cardEl) => {
-    const overlayCard = document.createElement('div');
-    overlayCard.classList.add('skill-panel');
-    createOverlayTitle(overlayCard, cardEl.querySelector('h2'));
-    overlay.append(overlayCard);
-    observer.observe(cardEl);
-};
+    const initOverlayCard = (cardEl) => {
+        const overlayCard = document.createElement('div');
+        overlayCard.classList.add('skill-panel');
+        createOverlayTitle(overlayCard, cardEl.querySelector('h2'));
+        overlay.append(overlayCard);
+        observer.observe(cardEl);
+    };
 
-cards.forEach(initOverlayCard);
-skillsContainer.addEventListener('mousemove', applyOverlayEffect);
-let lastMouseX = 0;
-let lastMouseY = 0;
+    cards.forEach(initOverlayCard);
+    skillsContainer.addEventListener('mousemove', applyOverlayEffect);
+    let lastMouseX = 0;
+    let lastMouseY = 0;
 
-skillsContainer.addEventListener('mousemove', (e) => {
-    lastMouseX = e.pageX - skillsContainer.offsetLeft;
-    lastMouseY = e.pageY - skillsContainer.offsetTop;
-    applyOverlayEffect(e);
-});
+    skillsContainer.addEventListener('mousemove', (e) => {
+        lastMouseX = e.pageX - skillsContainer.offsetLeft;
+        lastMouseY = e.pageY - skillsContainer.offsetTop;
+        applyOverlayEffect(e);
+    });
 
-skillsContainer.addEventListener('mouseleave', (e) => {
-    const overlayEl = e.currentTarget;
-    // Update the overlay position to the last known mouse position
-    overlayEl.style = `--opacity: 0; --x: ${lastMouseX}px; --y: ${lastMouseY}px;`;
-});
+    skillsContainer.addEventListener('mouseleave', (e) => {
+        const overlayEl = e.currentTarget;
+        // Update the overlay position to the last known mouse position
+        overlayEl.style = `--opacity: 0; --x: ${lastMouseX}px; --y: ${lastMouseY}px;`;
+    });
+}
+
+let skillsEffectActive = false;
+
+if (window.innerWidth >= 820) {
+    skillsInteractionMouseEffect();
+    skillsEffectActive = true;
+}
 // #endregion Skills overlay effect
