@@ -32,4 +32,4 @@ Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE)
 
 ## Autor
 
-**Melqui Tapia** - [LinkedIn](www.linkedin.com/in/melqui-tapia-davila-00941727a)
+**Melqui Tapia** - [LinkedIn](https://www.linkedin.com/in/melqui-tapia-davila-00941727a/)
